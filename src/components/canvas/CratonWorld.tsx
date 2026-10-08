@@ -7,7 +7,7 @@ import { useStore } from "@/store/useStore";
 
 const PARTICLE_COUNT = 3000;
 
-function CoreModel() {
+function CoreModel({ theme }: { theme: 'light' | 'dark' }) {
   const meshRef = useRef<THREE.Mesh>(null);
   const materialRef = useRef<THREE.MeshBasicMaterial>(null);
   
@@ -17,31 +17,38 @@ function CoreModel() {
       meshRef.current.rotation.y += delta * 0.3;
     }
     
-    // Animate color based on progress (Bulb is at progress 0.5)
+    // Animate color based on progress across 5 phases
     const progress = useStore.getState().progress;
     if (materialRef.current) {
-      const distToBulb = Math.abs(progress - 0.5);
-      const intensity = Math.max(0, 1 - distToBulb * 6); // peaks at 1 when progress is 0.5
+      const colorsLight = ["#3b4e69", "#3b4e69", "#3b4e69", "#3b4e69", "#3b4e69"];
+      const colorsDark = ["#5b7294", "#5b7294", "#5b7294", "#5b7294", "#5b7294"];
+      const colors = theme === 'light' ? colorsLight : colorsDark;
       
-      const defaultColor = new THREE.Color("#38BDF8");
-      const bulbColor = new THREE.Color("#FBBF24"); // Glowing filament color
+      const phaseFloat = progress * 4;
+      const index1 = Math.floor(phaseFloat);
+      const index2 = Math.min(4, index1 + 1);
+      const fract = phaseFloat - index1;
       
-      materialRef.current.color.lerpColors(defaultColor, bulbColor, intensity);
-      materialRef.current.opacity = 0.15 + intensity * 0.4;
+      const color1 = new THREE.Color(colors[index1]);
+      const color2 = new THREE.Color(colors[index2]);
+      
+      materialRef.current.color.lerpColors(color1, color2, fract);
+      materialRef.current.opacity = theme === 'light' ? 0.3 : 0.15;
     }
   });
 
   return (
     <mesh ref={meshRef}>
       <icosahedronGeometry args={[2, 1]} />
-      <meshBasicMaterial ref={materialRef} color="#38BDF8" wireframe transparent opacity={0.15} />
+      <meshBasicMaterial ref={materialRef} color={theme === 'light' ? '#3b4e69' : '#5b7294'} wireframe transparent opacity={theme === 'light' ? 0.3 : 0.15} />
     </mesh>
   );
 }
 
-export function CratonWorld() {
+export function CratonWorld({ activeStep = 0, theme = 'dark' }: { activeStep?: number; theme?: 'light' | 'dark' }) {
   const pointsRef = useRef<THREE.Points>(null);
   const pointsMaterialRef = useRef<THREE.PointsMaterial>(null);
+  const currentProgressRef = useRef(0);
 
   // Generate the 5 shapes
   const shapes = useMemo(() => {
@@ -119,8 +126,14 @@ export function CratonWorld() {
   useFrame((state, delta) => {
     if (!pointsRef.current) return;
     
-    // Performance opt: read directly from state instead of re-rendering
-    const progress = useStore.getState().progress;
+    // Smoothly lerp progress inside WebGL frame loop towards activeStep target
+    const targetProgress = (activeStep ?? 0) / 4;
+    currentProgressRef.current = THREE.MathUtils.lerp(
+      currentProgressRef.current, 
+      targetProgress, 
+      Math.min(delta * 5, 0.2)
+    );
+    const progress = currentProgressRef.current;
     
     // Determine which two shapes we are morphing between
     const scaledProgress = progress * 4;
@@ -135,7 +148,7 @@ export function CratonWorld() {
 
     for (let i = 0; i < PARTICLE_COUNT * 3; i++) {
       const targetVal = THREE.MathUtils.lerp(currentArray[i], nextArray[i], morphFactor);
-      positions[i] = THREE.MathUtils.lerp(positions[i], targetVal, 0.1); 
+      positions[i] = THREE.MathUtils.lerp(positions[i], targetVal, 0.15); 
     }
     posAttribute.needsUpdate = true;
 
@@ -143,19 +156,27 @@ export function CratonWorld() {
     pointsRef.current.rotation.y += delta * 0.1;
     pointsRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.5) * 0.1;
     
-    // Animate color based on progress (Bulb is at progress 0.5)
+    // Animate color based on progress across 5 phases
     if (pointsMaterialRef.current) {
-      const distToBulb = Math.abs(progress - 0.5);
-      const intensity = Math.max(0, 1 - distToBulb * 6);
-      const defaultColor = new THREE.Color("#38BDF8");
-      const bulbColor = new THREE.Color("#FBBF24");
-      pointsMaterialRef.current.color.lerpColors(defaultColor, bulbColor, intensity);
+      const colorsLight = ["#3b4e69", "#3b4e69", "#3b4e69", "#3b4e69", "#3b4e69"];
+      const colorsDark = ["#5b7294", "#5b7294", "#5b7294", "#5b7294", "#5b7294"];
+      const colors = theme === 'light' ? colorsLight : colorsDark;
+      
+      const phaseFloat = progress * 4;
+      const index1 = Math.floor(phaseFloat);
+      const index2 = Math.min(4, index1 + 1);
+      const fract = phaseFloat - index1;
+      
+      const color1 = new THREE.Color(colors[index1]);
+      const color2 = new THREE.Color(colors[index2]);
+      
+      pointsMaterialRef.current.color.lerpColors(color1, color2, fract);
     }
   });
 
   return (
     <group>
-      <CoreModel />
+      <CoreModel theme={theme} />
       <points ref={pointsRef}>
         <bufferGeometry>
           <bufferAttribute
@@ -169,10 +190,10 @@ export function CratonWorld() {
         <pointsMaterial
           ref={pointsMaterialRef}
           size={0.08}
-          color="#38BDF8"
+          color={theme === 'light' ? '#3b4e69' : '#5b7294'}
           transparent
-          opacity={0.8}
-          blending={THREE.AdditiveBlending}
+          opacity={theme === 'light' ? 1.0 : 0.8}
+          blending={theme === 'light' ? THREE.NormalBlending : THREE.AdditiveBlending}
           sizeAttenuation={true}
         />
       </points>

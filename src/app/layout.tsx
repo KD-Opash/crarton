@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Inter, Outfit, DM_Mono } from "next/font/google";
+import { Inter, Outfit, DM_Mono, Fraunces } from "next/font/google";
+import { ThemeProvider } from "@/components/ThemeProvider";
 import "./globals.css";
 
 const inter = Inter({
@@ -16,6 +17,13 @@ const outfit = Outfit({
 const dmMono = DM_Mono({
   variable: "--font-mono",
   weight: ["400", "500"],
+  subsets: ["latin"],
+});
+
+const fraunces = Fraunces({
+  variable: "--font-kumo",
+  weight: ["400", "600", "700", "900"],
+  style: ["normal", "italic"],
   subsets: ["latin"],
 });
 
@@ -85,15 +93,18 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <script
+          id="json-ld"
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
       <body
         suppressHydrationWarning
-        className={`${inter.variable} ${outfit.variable} ${dmMono.variable} antialiased selection:bg-copper selection:text-ink`}
+        className={`${inter.variable} ${outfit.variable} ${dmMono.variable} ${fraunces.variable} antialiased selection:bg-copper selection:text-ink`}
       >
-        {children}
+        <ThemeProvider attribute="class" defaultTheme="dark" disableTransitionOnChange>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

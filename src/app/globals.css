@@ -1,42 +1,40 @@
 @import "tailwindcss";
 
+@variant dark (&:where(.dark, .dark *));
+
 @theme {
-  /* Colors - Deep Tech Blue / Cyan Dark Mode */
-  --color-background: #0B101A;
-  --color-foreground: #FFFFFF;
+  /* Dynamic Theme Colors */
   
-  /* Inks - Deep navy blue blacks */
-  --color-ink: #0B101A;
-  --color-ink-2: #141C2B;
-  --color-ink-3: #1D283C;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
   
-  /* Papers - Soft cyan/ice */
-  --color-paper: #E6FAFC;
-  --color-paper-2: #C9F0F5;
-  --color-cream: #FFFFFF;
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
   
-  /* Muted - Cool slate grays */
-  --color-muted: #8AA1B5;
-  --color-muted-dark: #4C6073;
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-cream: var(--cream);
   
-  /* Accents - 'Sage' -> Bright Cyan */
-  --color-sage: #00F0FF;
-  --color-sage-deep: #00B8C4;
-  --color-sage-light: #85FBFF;
+  --color-muted: var(--muted);
+  --color-muted-dark: var(--muted-dark);
   
-  /* Accents - 'Copper' -> Deep Tech Blue */
-  --color-copper: #38BDF8;
-  --color-copper-deep: #0284C7;
-  --color-copper-light: #7DD3FC;
+  --color-sage: var(--sage);
+  --color-sage-deep: var(--sage-deep);
+  --color-sage-light: var(--sage-light);
   
-  /* Lines - Warm translucent borders */
-  --color-line: rgba(255, 240, 220, 0.08);
-  --color-line-dark: rgba(0, 0, 0, 0.4);
+  --color-copper: var(--copper);
+  --color-copper-deep: var(--copper-deep);
+  --color-copper-light: var(--copper-light);
+  
+  --color-line: var(--line);
+  --color-line-dark: var(--line-dark);
 
   /* Typography */
   --font-sans: var(--font-sans);
   --font-display: var(--font-display);
   --font-mono: var(--font-mono);
+  --font-kumo: var(--font-kumo);
 
   /* Spacing - Large editorial whitespace */
   --spacing-pad: clamp(24px, 8vw, 160px);
@@ -49,11 +47,11 @@
   --radius-lg: 10px;
   --radius-full: 9999px;
 
-  /* Shadows - Layered depth, controlled glow instead of excessive neon */
-  --shadow-glow-copper: 0 0 20px -5px rgba(216, 160, 117, 0.25);
-  --shadow-glow-sage: 0 0 20px -5px rgba(143, 164, 120, 0.25);
-  --shadow-frame: 0 40px 80px -40px rgba(0, 0, 0, 0.7);
-  --shadow-inner-glow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  /* Shadows */
+  --shadow-glow-copper: var(--shadow-glow-copper);
+  --shadow-glow-sage: var(--shadow-glow-sage);
+  --shadow-frame: var(--shadow-frame);
+  --shadow-inner-glow: var(--shadow-inner-glow);
   
   /* Animation Timing */
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
@@ -67,7 +65,77 @@
 
 @layer base {
   :root {
+    /* Light Mode Variables */
+    color-scheme: light;
+    --theme-white: #0B101A; /* blackish for light mode */
+    --theme-black: #FFFFFF; /* white for light mode */
+    
+    --background: #FAFAFA;
+    --foreground: #0B101A;
+    
+    --ink: #FFFFFF;
+    --ink-2: #F3F4F6;
+    --ink-3: #E5E7EB;
+    
+    --paper: #E6FAFC;
+    --paper-2: #C9F0F5;
+    --cream: #0B101A;
+    
+    --muted: #64748B;
+    --muted-dark: #94A3B8;
+    
+    --sage: #008992;
+    --sage-deep: #006D75;
+    --sage-light: #4DC3CC;
+    
+    --copper: #0284C7;
+    --copper-deep: #0369A1;
+    --copper-light: #38BDF8;
+    
+    --line: rgba(0, 0, 0, 0.1);
+    --line-dark: rgba(255, 255, 255, 0.4);
+    
+    --shadow-glow-copper: 0 0 20px -5px rgba(2, 132, 199, 0.25);
+    --shadow-glow-sage: 0 0 20px -5px rgba(0, 137, 146, 0.25);
+    --shadow-frame: 0 20px 40px -20px rgba(0, 0, 0, 0.1);
+    --shadow-inner-glow: inset 0 1px 0 rgba(0, 0, 0, 0.05);
+  }
+  
+  .dark {
+    /* Dark Mode Variables */
     color-scheme: dark;
+    --theme-white: #FFFFFF; /* white for dark mode */
+    --theme-black: #000000; /* black for dark mode */
+    
+    --background: #0B101A;
+    --foreground: #FFFFFF;
+    
+    --ink: #0B101A;
+    --ink-2: #141C2B;
+    --ink-3: #1D283C;
+    
+    --paper: #E6FAFC;
+    --paper-2: #C9F0F5;
+    --cream: #FFFFFF;
+    
+    --muted: #8AA1B5;
+    --muted-dark: #4C6073;
+    
+    --sage: #00F0FF;
+    --sage-deep: #00B8C4;
+    --sage-light: #85FBFF;
+    
+    --copper: #38BDF8;
+    --copper-deep: #0284C7;
+    --copper-light: #7DD3FC;
+    
+    --line: rgba(255, 240, 220, 0.08);
+    --line-dark: rgba(0, 0, 0, 0.4);
+    
+    --shadow-glow-copper: 0 0 20px -5px rgba(216, 160, 117, 0.25);
+    --shadow-glow-sage: 0 0 20px -5px rgba(143, 164, 120, 0.25);
+    --shadow-frame: 0 40px 80px -40px rgba(0, 0, 0, 0.7);
+    --shadow-inner-glow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
   }
 
   html {
@@ -119,4 +187,28 @@
   100% {
     opacity: 1;
   }
+}
+
+@keyframes sweep {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* View Transition API */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+::view-transition-old(root) {
+  z-index: 1;
+}
+::view-transition-new(root) {
+  z-index: 2;
+}
+.dark::view-transition-old(root) {
+  z-index: 2;
+}
+.dark::view-transition-new(root) {
+  z-index: 1;
 }
