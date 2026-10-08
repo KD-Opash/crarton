@@ -22,7 +22,14 @@ import {
   useSpring,
 } from "framer-motion";
 import { MagicCursor } from "@/components/ui/MagicCursor";
-import { ShieldCheck, Lock, Unlock, Server, Fingerprint, ChevronUp } from "lucide-react";
+import {
+  ShieldCheck,
+  Lock,
+  Unlock,
+  Server,
+  Fingerprint,
+  ChevronUp,
+} from "lucide-react";
 import { useTheme } from "next-themes";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -773,7 +780,7 @@ function ForwardStackedCardsSection({ isDark }: { isDark: boolean }) {
     <div
       ref={containerRef}
       id="method"
-      className="w-full relative h-[280vh] bg-[#FAFAFA] dark:bg-[#0B1120] transition-colors duration-500"
+      className="w-full relative h-[180vh] bg-[#FAFAFA] dark:bg-[#0B1120] transition-colors duration-500"
     >
       {/* Sticky Pinned Viewport (Screen stays 100% fixed in place during scrolling) */}
       <div className="sticky top-0 h-screen w-full flex flex-col items-center justify-center py-6 md:py-10 px-6 md:px-12 lg:px-20 overflow-hidden z-20 relative">
@@ -858,7 +865,9 @@ function InteractiveAuditableCard({ isDark }: { isDark: boolean }) {
         <div className="font-mono text-xs uppercase tracking-wider flex items-center gap-2 px-3 py-1.5 rounded-full border border-slate-300 dark:border-white/10 bg-slate-100/80 dark:bg-white/5">
           <span
             className={`w-2 h-2 rounded-full ${
-              isUnlocked ? "bg-emerald-500 animate-ping" : "bg-blue-500/60 animate-pulse"
+              isUnlocked
+                ? "bg-emerald-500 animate-ping"
+                : "bg-blue-500/60 animate-pulse"
             }`}
           />
           <span className="text-slate-600 dark:text-slate-400 font-semibold">
@@ -904,7 +913,11 @@ function InteractiveAuditableCard({ isDark }: { isDark: boolean }) {
               <motion.div
                 initial={{ y: -50, opacity: 0 }}
                 animate={{ y: [-45, 45, -45], opacity: [0.2, 1, 0.2] }}
-                transition={{ repeat: Infinity, duration: 2.0, ease: "easeInOut" }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 2.0,
+                  ease: "easeInOut",
+                }}
                 className="absolute w-[80%] h-[2px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent shadow-[0_0_14px_#38bdf8] z-20"
               />
             )}
@@ -983,7 +996,11 @@ function InteractiveSoc2Card({ isDark }: { isDark: boolean }) {
             ? { opacity: 1, y: 0, scale: 1 }
             : { opacity: 0, y: 18, scale: 0.95 }
         }
-        transition={{ duration: 0.4, delay: isHovered ? 0.08 : 0, ease: [0.16, 1, 0.3, 1] }}
+        transition={{
+          duration: 0.4,
+          delay: isHovered ? 0.08 : 0,
+          ease: [0.16, 1, 0.3, 1],
+        }}
         className="mt-auto pointer-events-none z-20"
       >
         <h4 className="text-xl font-display text-slate-900 dark:text-white mb-1 uppercase tracking-tight">
@@ -1045,7 +1062,11 @@ function InteractiveAesCard({ isDark }: { isDark: boolean }) {
             ? { opacity: 1, y: 0, scale: 1 }
             : { opacity: 0, y: 18, scale: 0.95 }
         }
-        transition={{ duration: 0.4, delay: isHovered ? 0.08 : 0, ease: [0.16, 1, 0.3, 1] }}
+        transition={{
+          duration: 0.4,
+          delay: isHovered ? 0.08 : 0,
+          ease: [0.16, 1, 0.3, 1],
+        }}
         className="mt-auto pointer-events-none z-20"
       >
         <h4 className="text-xl font-display text-slate-900 dark:text-white mb-1 uppercase tracking-tight">
@@ -1094,7 +1115,9 @@ function InteractiveDeploymentCard({ isDark }: { isDark: boolean }) {
         <div className="w-16 h-2 rounded-full bg-slate-300 dark:bg-white/10 overflow-hidden">
           <div
             className={`w-full h-full rounded-full transition-all duration-500 ${
-              isHovered ? "bg-blue-500 animate-pulse" : "bg-slate-400 dark:bg-white/40"
+              isHovered
+                ? "bg-blue-500 animate-pulse"
+                : "bg-slate-400 dark:bg-white/40"
             }`}
           />
         </div>
@@ -1202,7 +1225,9 @@ function ExpandingTestimonialsAccordion({ isDark }: { isDark: boolean }) {
 
                 <div className="flex items-center gap-4 pt-6 border-t border-slate-200 dark:border-white/10 mt-6">
                   <div className="w-11 h-11 rounded-full flex items-center justify-center border border-cyan-500/30 bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 font-bold shrink-0">
-                    <span className="font-display text-lg">{item.initials}</span>
+                    <span className="font-display text-lg">
+                      {item.initials}
+                    </span>
                   </div>
                   <div className="min-w-0 overflow-hidden">
                     <h4 className="font-sans text-sm font-semibold text-slate-900 dark:text-white truncate">
@@ -1279,7 +1304,7 @@ function InteractiveContactSection({ isDark }: { isDark: boolean }) {
     e.preventDefault();
     const subject = encodeURIComponent(`Craton Inquiry: ${selectedIntent}`);
     const body = encodeURIComponent(
-      `Name: ${formData.name}\nEmail: ${formData.email}\nCompany: ${formData.company}\nConversation Type: ${selectedIntent}\nDetails: ${formData.workNote}`
+      `Name: ${formData.name}\nEmail: ${formData.email}\nCompany: ${formData.company}\nConversation Type: ${selectedIntent}\nDetails: ${formData.workNote}`,
     );
     window.location.href = `mailto:hello@craton.ai?subject=${subject}&body=${body}`;
   };
@@ -1287,7 +1312,7 @@ function InteractiveContactSection({ isDark }: { isDark: boolean }) {
   return (
     <section
       id="contact"
-      className="w-full py-28 md:py-36 flex flex-col items-center justify-center px-6 md:px-12 z-10 bg-transparent relative overflow-hidden"
+      className="w-full py-12 md:py-16 flex flex-col items-center justify-center px-6 md:px-12 z-10 bg-transparent relative overflow-hidden"
     >
       {/* Header Area (Curious by nature style) */}
       <div className="max-w-4xl mx-auto text-center flex flex-col items-center shrink-0 mb-12 relative z-10">
@@ -1375,7 +1400,10 @@ function InteractiveContactSection({ isDark }: { isDark: boolean }) {
 
           {/* RIGHT SIDE: Contact Intake Form */}
           <div className="lg:col-span-7 bg-white/70 dark:bg-white/[0.02] border border-slate-200 dark:border-white/10 rounded-3xl p-6 md:p-8 backdrop-blur-md">
-            <form onSubmit={handleSubmit} className="flex flex-col gap-5 text-left">
+            <form
+              onSubmit={handleSubmit}
+              className="flex flex-col gap-5 text-left"
+            >
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-slate-500 dark:text-slate-400 font-mono text-[11px] uppercase tracking-widest mb-1.5">
@@ -1469,7 +1497,8 @@ function InteractiveContactSection({ isDark }: { isDark: boolean }) {
                   Start a conversation
                 </button>
                 <p className="text-slate-500 dark:text-slate-400 font-sans text-xs mt-3 text-center">
-                  Opens your email client addressed to Craton. We reply within two business days.
+                  Opens your email client addressed to Craton. We reply within
+                  two business days.
                 </p>
               </div>
             </form>
@@ -1538,7 +1567,7 @@ function UniqueCompanyBentoSection({ isDark }: { isDark: boolean }) {
     },
     {
       title: "Chief Product Officer",
-      tag: "Co-founder · Product & User Acceptance",
+      tag: "Co-founder · product & user acceptance",
       badge: "Product Lead",
     },
     {
@@ -1564,7 +1593,10 @@ function UniqueCompanyBentoSection({ isDark }: { isDark: boolean }) {
   ];
 
   return (
-    <section id="company" className="w-full py-28 md:py-36 relative overflow-hidden z-10">
+    <section
+      id="company"
+      className="w-full py-12 md:py-16 relative overflow-hidden z-10"
+    >
       {/* Background ambient radial glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-500/5 dark:bg-blue-500/10 rounded-full blur-[140px] pointer-events-none -z-10" />
 
@@ -1583,22 +1615,67 @@ function UniqueCompanyBentoSection({ isDark }: { isDark: boolean }) {
           >
             {/* Ambient Corner Glow */}
             <div className="absolute -top-20 -right-20 w-80 h-80 bg-blue-500/10 rounded-full blur-[90px] pointer-events-none group-hover:bg-blue-500/20 transition-colors duration-700" />
-            
+
             {/* Rotating Bedrock Crystal Matrix Graphic */}
             <div className="absolute right-6 top-1/2 -translate-y-1/2 w-64 h-64 opacity-20 dark:opacity-30 pointer-events-none hidden md:block">
-              <svg viewBox="0 0 200 200" className="w-full h-full animate-[spin_50s_linear_infinite]">
-                <polygon points="100,20 170,60 170,140 100,180 30,140 30,60" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-blue-500" />
-                <polygon points="100,45 145,72 145,128 100,155 55,128 55,72" fill="none" stroke="currentColor" strokeWidth="1" className="text-cyan-400" />
-                <line x1="100" y1="20" x2="100" y2="180" stroke="currentColor" strokeWidth="1" className="text-blue-400" />
-                <line x1="30" y1="60" x2="170" y2="140" stroke="currentColor" strokeWidth="1" className="text-blue-400" />
-                <line x1="30" y1="140" x2="170" y2="60" stroke="currentColor" strokeWidth="1" className="text-blue-400" />
-                <circle cx="100" cy="100" r="10" fill="currentColor" className="text-blue-500 animate-pulse" />
+              <svg
+                viewBox="0 0 200 200"
+                className="w-full h-full animate-[spin_50s_linear_infinite]"
+              >
+                <polygon
+                  points="100,20 170,60 170,140 100,180 30,140 30,60"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  className="text-blue-500"
+                />
+                <polygon
+                  points="100,45 145,72 145,128 100,155 55,128 55,72"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1"
+                  className="text-cyan-400"
+                />
+                <line
+                  x1="100"
+                  y1="20"
+                  x2="100"
+                  y2="180"
+                  stroke="currentColor"
+                  strokeWidth="1"
+                  className="text-blue-400"
+                />
+                <line
+                  x1="30"
+                  y1="60"
+                  x2="170"
+                  y2="140"
+                  stroke="currentColor"
+                  strokeWidth="1"
+                  className="text-blue-400"
+                />
+                <line
+                  x1="30"
+                  y1="140"
+                  x2="170"
+                  y2="60"
+                  stroke="currentColor"
+                  strokeWidth="1"
+                  className="text-blue-400"
+                />
+                <circle
+                  cx="100"
+                  cy="100"
+                  r="10"
+                  fill="currentColor"
+                  className="text-blue-500 animate-pulse"
+                />
               </svg>
             </div>
 
             <div className="relative z-10 flex flex-col justify-between h-full">
               <div>
-                <div className="flex items-center gap-3 mb-6">
+                <div className="flex items-center gap-3 mb-4">
                   <span className="font-mono text-xs uppercase tracking-[0.2em] font-semibold text-blue-600 dark:text-blue-400">
                     04 // CRATON TECHNOLOGIES
                   </span>
@@ -1608,7 +1685,7 @@ function UniqueCompanyBentoSection({ isDark }: { isDark: boolean }) {
                   </span>
                 </div>
 
-                <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-slate-900 dark:text-white leading-[1.15] mb-6 max-w-xl">
+                <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-slate-900 dark:text-white leading-[1.15] mb-5 max-w-xl">
                   Bold thinking.
                   <br />
                   <span className="font-serif italic font-normal text-blue-600 dark:text-cyan-400">
@@ -1616,9 +1693,30 @@ function UniqueCompanyBentoSection({ isDark }: { isDark: boolean }) {
                   </span>
                 </h2>
 
-                <p className="text-base md:text-lg text-slate-700 dark:text-slate-300 font-sans font-light leading-relaxed max-w-xl">
+                <p className="text-sm md:text-base text-slate-700 dark:text-slate-300 font-sans font-normal leading-relaxed max-w-2xl mb-4">
+                  Craton Technologies is an innovation-driven product company based in Frisco, Texas. We identify hard, high-trust problems in regulated or evidence-heavy industries, invent a novel approach, protect it, assemble the domain leadership to make it credible, and ship it as a product — then repeat the method in the next domain.
+                </p>
+
+                <p className="text-sm md:text-base text-slate-600 dark:text-slate-400 font-sans font-light leading-relaxed max-w-2xl mb-6">
                   A craton is the ancient, stable core of a continent — the bedrock everything else is built on. That is the idea: one method, one engineering discipline, one patent-first habit, from which restless, domain-specific products rise.
                 </p>
+              </div>
+
+              {/* Pill Tags */}
+              <div className="flex flex-wrap items-center gap-2.5 pt-4 border-t border-slate-200 dark:border-white/10">
+                {[
+                  "Artificial intelligence",
+                  "Domain expertise",
+                  "Evidence-led thinking",
+                  "Patent-first",
+                ].map((tag) => (
+                  <span
+                    key={tag}
+                    className="px-3.5 py-1.5 rounded-full text-xs font-sans font-medium bg-slate-200/80 dark:bg-white/10 text-slate-800 dark:text-slate-200 border border-slate-300/60 dark:border-white/10"
+                  >
+                    {tag}
+                  </span>
+                ))}
               </div>
             </div>
           </motion.div>
@@ -1629,17 +1727,13 @@ function UniqueCompanyBentoSection({ isDark }: { isDark: boolean }) {
             className="lg:col-span-4 bg-slate-100/90 dark:bg-white/[0.02] backdrop-blur-2xl border border-blue-500/20 dark:border-white/10 rounded-[36px] p-8 md:p-10 relative overflow-hidden group hover:border-blue-500/40 transition-all duration-500 shadow-xl flex flex-col justify-between"
           >
             <div className="absolute -bottom-20 -right-20 w-64 h-64 bg-blue-500/15 rounded-full blur-[80px] pointer-events-none group-hover:bg-blue-500/25 transition-colors duration-700" />
-            
+
             <div className="relative z-10 flex flex-col h-full justify-between">
               <div>
                 <div className="flex items-center justify-between mb-4">
                   <div className="w-12 h-12 rounded-2xl bg-blue-600/10 border border-blue-500/30 flex items-center justify-center text-blue-600 dark:text-cyan-400 font-bold font-display text-lg">
                     SA
                   </div>
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 font-medium">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                    VERIFIED FOUNDER
-                  </span>
                 </div>
 
                 <h3 className="text-2xl md:text-3xl font-display text-slate-900 dark:text-white font-bold tracking-tight mb-1">
@@ -1650,34 +1744,45 @@ function UniqueCompanyBentoSection({ isDark }: { isDark: boolean }) {
                 </p>
 
                 <p className="text-slate-600 dark:text-slate-300 font-sans font-light leading-relaxed text-xs md:text-sm mb-6">
-                  Twenty-two years building enterprise systems where failure was expensive — retail integration at national scale, then platform and architecture leadership — with the habit of inventing from inside operating roles.
+                  Twenty-two years building enterprise systems where failure was
+                  expensive — retail integration at national scale, then
+                  platform and architecture leadership — with the habit of
+                  inventing from inside operating roles.
                 </p>
               </div>
 
-              {/* 4 Stats Cards */}
+              {/* 4 Stats Badges matching user's exact specification */}
               <div className="grid grid-cols-2 gap-3 pt-4 border-t border-slate-200 dark:border-white/10">
                 <div className="bg-white/60 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl p-3">
-                  <p className="text-lg font-bold font-display text-slate-900 dark:text-white">3 / 9</p>
+                  <p className="text-sm font-bold font-mono text-slate-900 dark:text-white leading-tight">
+                    3 granted
+                  </p>
                   <p className="text-[10px] uppercase tracking-wider text-slate-500 dark:text-slate-400 font-mono mt-0.5">
-                    Patents (Grant / Pend)
+                    US patents
                   </p>
                 </div>
                 <div className="bg-white/60 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl p-3">
-                  <p className="text-lg font-bold font-display text-slate-900 dark:text-white">TOGAF</p>
+                  <p className="text-sm font-bold font-mono text-slate-900 dark:text-white leading-tight">
+                    9 pending
+                  </p>
                   <p className="text-[10px] uppercase tracking-wider text-slate-500 dark:text-slate-400 font-mono mt-0.5">
-                    9.1 Certified
+                    US Provisional
                   </p>
                 </div>
                 <div className="bg-white/60 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl p-3">
-                  <p className="text-lg font-bold font-display text-slate-900 dark:text-white">HQ</p>
+                  <p className="text-xs font-bold font-mono text-slate-900 dark:text-white leading-tight">
+                    Judge
+                  </p>
                   <p className="text-[10px] uppercase tracking-wider text-slate-500 dark:text-slate-400 font-mono mt-0.5">
-                    Frisco, TX
+                    R&D 100 Awards
                   </p>
                 </div>
                 <div className="bg-white/60 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl p-3">
-                  <p className="text-lg font-bold font-display text-slate-900 dark:text-white">22+</p>
+                  <p className="text-sm font-bold font-mono text-slate-900 dark:text-white leading-tight">
+                    TOGAF 9.1
+                  </p>
                   <p className="text-[10px] uppercase tracking-wider text-slate-500 dark:text-slate-400 font-mono mt-0.5">
-                    Yrs Enterprise Exp
+                    Certified
                   </p>
                 </div>
               </div>
@@ -1699,7 +1804,7 @@ function UniqueCompanyBentoSection({ isDark }: { isDark: boolean }) {
                 </p>
               </div>
               <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 tracking-widest uppercase">
-                Roles shown; names appear with consent.
+                Roles shown; names appear with each person’s consent.
               </p>
             </div>
 
@@ -1737,14 +1842,16 @@ function UniqueCompanyBentoSection({ isDark }: { isDark: boolean }) {
                 <div className="flex items-center gap-2 mb-2">
                   <span className="w-2 h-2 rounded-full bg-cyan-500" />
                   <p className="text-[11px] uppercase tracking-widest font-mono text-cyan-600 dark:text-cyan-400 font-semibold">
-                    Next Generation Impact
+                    Next generation
                   </p>
                 </div>
                 <h4 className="text-xl font-display text-slate-900 dark:text-white font-bold mb-2 tracking-wide uppercase">
                   DiscoverSTEM Foundation
                 </h4>
                 <p className="text-slate-600 dark:text-slate-400 text-xs font-sans leading-relaxed">
-                  A 501(c)(3) our founder helped establish, supporting underprivileged children in STEM, entrepreneurship, and innovation.
+                  A 501(c)(3) our founder helped establish, supporting
+                  underprivileged children in STEM, entrepreneurship, and
+                  innovation.
                 </p>
               </div>
             </div>
@@ -1756,14 +1863,16 @@ function UniqueCompanyBentoSection({ isDark }: { isDark: boolean }) {
                 <div className="flex items-center gap-2 mb-2">
                   <span className="w-2 h-2 rounded-full bg-blue-500" />
                   <p className="text-[11px] uppercase tracking-widest font-mono text-blue-600 dark:text-blue-400 font-semibold">
-                    Global Recognition
+                    Recognition
                   </p>
                 </div>
                 <h4 className="text-xl font-display text-slate-900 dark:text-white font-bold mb-2 tracking-wide uppercase">
                   R&D 100 Awards
                 </h4>
                 <p className="text-slate-600 dark:text-slate-400 text-xs font-sans leading-relaxed">
-                  Our founder serves on the judging panel for one of the longest-running recognitions of applied research and innovation.
+                  Our founder serves on the judging panel for one of the
+                  longest-running recognitions of applied research and
+                  innovation.
                 </p>
               </div>
             </div>
@@ -1775,8 +1884,6 @@ function UniqueCompanyBentoSection({ isDark }: { isDark: boolean }) {
 }
 
 export default function Home() {
-
-
   const horizontalRef = useRef<HTMLDivElement>(null);
   const scrollTrackRef = useRef<HTMLDivElement>(null);
   const { setProgress } = useStore();
@@ -1896,7 +2003,10 @@ export default function Home() {
       {/* ============================================================== */}
       {/* SECTION 1: INTERACTIVE NARRATIVE (KUMO-STYLE)                  */}
       {/* ============================================================== */}
-      <section className="h-screen w-full relative z-10 overflow-hidden bg-transparent flex flex-col justify-end pb-20">
+      <section
+        id="discover"
+        className="h-screen w-full relative z-10 overflow-hidden bg-transparent flex flex-col justify-end pb-20"
+      >
         {/* Giant Background Typography */}
         <div className="absolute inset-0 flex items-center justify-center pb-40 md:pb-52 pointer-events-none overflow-hidden z-0">
           <AnimatePresence mode="popLayout">
@@ -2211,27 +2321,21 @@ export default function Home() {
 
             {/* Right Interactive Controls */}
             <div className="flex flex-col items-end gap-6 relative z-10">
-              <p className="text-[10px] uppercase font-mono tracking-widest text-cream/50">
+              <p className="text-[10px] uppercase font-mono tracking-widest text-[#3b4e69]/70 dark:text-cream/50">
                 Select Phase
               </p>
-              <div className="flex gap-4">
+              <div className="flex gap-2">
                 {[0, 1, 2, 3, 4].map((step) => (
                   <button
                     key={step}
                     onClick={() => setActiveStep(step)}
-                    className={`w-14 h-14 rounded-full flex items-center justify-center transition-all duration-500 backdrop-blur-md ${
+                    className={`w-9 h-9 rounded-full font-mono text-xs transition-all flex items-center justify-center cursor-pointer ${
                       activeStep === step
-                        ? mounted && theme === "light"
-                          ? "bg-gradient-to-br from-gray-900 to-blue-600 border-none text-white shadow-[0_0_20px_rgba(37,99,235,0.4),inset_0_0_15px_rgba(255,255,255,0.3)] scale-110"
-                          : "bg-gradient-to-br from-copper to-sage border-none text-white shadow-[0_0_25px_rgba(56,189,248,0.6),inset_0_0_15px_rgba(255,255,255,0.6)] scale-110"
-                        : mounted && theme === "light"
-                          ? "bg-white/80 border border-slate-300 text-slate-500 shadow-[0_0_15px_rgba(0,0,0,0.05)] hover:shadow-[0_0_25px_rgba(14,165,233,0.2)] hover:text-sky-600 hover:scale-105"
-                          : "bg-white/5 border border-cream/10 text-cream/50 shadow-[0_0_15px_rgba(56,189,248,0.15)] hover:shadow-[0_0_25px_rgba(56,189,248,0.3)] hover:text-cream hover:scale-105"
+                        ? "bg-[#3b4e69] text-white dark:bg-copper dark:text-ink-1 font-bold shadow-lg scale-105"
+                        : "bg-[#3b4e69]/10 dark:bg-cream/5 text-[#3b4e69] dark:text-cream/60 hover:bg-[#3b4e69]/20 dark:hover:bg-cream/15"
                     }`}
                   >
-                    <span className="font-mono text-[11px] font-bold">
-                      0{step + 1}
-                    </span>
+                    0{step + 1}
                   </button>
                 ))}
               </div>
@@ -2243,119 +2347,178 @@ export default function Home() {
       {/* ============================================================== */}
       {/* SECTION 1.5: THE 5 BENTO STATS CARDS                           */}
       {/* ============================================================== */}
-      <section className="w-full py-24 px-6 md:px-12 relative bg-transparent z-30 overflow-hidden">
+      <section className="w-full pt-4 pb-12 px-6 md:px-12 relative bg-transparent z-30 overflow-hidden">
         <motion.div
           variants={{
             hidden: { opacity: 0 },
             visible: {
               opacity: 1,
-              transition: { staggerChildren: 0.3 },
+              transition: { staggerChildren: 0.1 },
             },
           }}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          className="relative z-10 flex flex-col lg:flex-row gap-4 max-w-[1600px] mx-auto w-full"
+          viewport={{ once: true, amount: 0.1 }}
+          className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 max-w-7xl mx-auto w-full"
         >
-          {/* Card 1 */}
+          {/* Card 1: Experience */}
           <motion.div
             variants={{
-              hidden: { opacity: 0, x: "100vw" },
+              hidden: { opacity: 0, y: 20 },
               visible: {
                 opacity: 1,
-                x: 0,
-                transition: { type: "spring", stiffness: 40, damping: 14 },
+                y: 0,
+                transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
               },
             }}
-            className="flex-1 rounded-[24px] p-5 bg-[#F1F5F9]/90 dark:bg-ink-2/30 backdrop-blur-3xl border border-white/80 dark:border-cream/10 shadow-[0_4px_24px_rgba(0,0,0,0.02)] dark:shadow-[0_4px_24px_rgba(0,0,0,0.2)] hover:shadow-[0_12px_40px_rgba(37,99,235,0.15)] dark:hover:shadow-[0_12px_40px_rgba(56,189,248,0.15)] hover:-translate-y-2 transition-all duration-300 flex flex-col justify-center min-h-[120px]"
+            whileHover={{ y: -6, scale: 1.02 }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="group relative rounded-[24px] p-6 bg-slate-100/90 dark:bg-white/[0.03] backdrop-blur-2xl border border-slate-200 dark:border-white/10 hover:border-cyan-400/50 dark:hover:border-cyan-400/60 shadow-xl shadow-cyan-500/5 hover:shadow-cyan-500/20 transition-all duration-300 flex flex-col justify-center min-h-[120px] overflow-hidden cursor-pointer"
           >
-            <h3 className="text-xl lg:text-2xl font-serif text-[#3b4e69] dark:text-cream mb-2 tracking-tight leading-none">
-              22+ years
-            </h3>
-            <p className="text-[#3b4e69]/70 dark:text-cream/70 font-sans text-[10px] lg:text-xs leading-relaxed">
-              shipping enterprise systems
-            </p>
+            {/* Hover Laser Sweep Line */}
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-400/20 to-transparent -translate-x-[100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-out pointer-events-none" />
+            {/* Ambient Corner Glow */}
+            <div className="absolute -top-12 -right-12 w-32 h-32 bg-cyan-400/15 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+
+            <div className="relative z-10">
+              <h3 className="text-xl lg:text-2xl font-display font-bold text-slate-900 dark:text-white mb-1 tracking-tight leading-none group-hover:text-cyan-500 dark:group-hover:text-cyan-300 transition-colors">
+                22+ years
+              </h3>
+              <p className="text-slate-600 dark:text-slate-300 font-sans text-xs leading-relaxed">
+                shipping enterprise systems
+              </p>
+            </div>
+
+            {/* Bottom Glow Beam accent line */}
+            <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center" />
           </motion.div>
 
-          {/* Card 2 */}
+          {/* Card 2: IP Patents */}
           <motion.div
             variants={{
-              hidden: { opacity: 0, x: "100vw" },
+              hidden: { opacity: 0, y: 20 },
               visible: {
                 opacity: 1,
-                x: 0,
-                transition: { type: "spring", stiffness: 40, damping: 14 },
+                y: 0,
+                transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
               },
             }}
-            className="flex-1 rounded-[24px] p-5 bg-[#F1F5F9]/90 dark:bg-ink-2/30 backdrop-blur-3xl border border-white/80 dark:border-cream/10 shadow-[0_4px_24px_rgba(0,0,0,0.02)] dark:shadow-[0_4px_24px_rgba(0,0,0,0.2)] hover:shadow-[0_12px_40px_rgba(37,99,235,0.15)] dark:hover:shadow-[0_12px_40px_rgba(56,189,248,0.15)] hover:-translate-y-2 transition-all duration-300 flex flex-col justify-center min-h-[120px]"
+            whileHover={{ y: -6, scale: 1.02 }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="group relative rounded-[24px] p-6 bg-slate-100/90 dark:bg-white/[0.03] backdrop-blur-2xl border border-slate-200 dark:border-white/10 hover:border-cyan-400/50 dark:hover:border-cyan-400/60 shadow-xl shadow-cyan-500/5 hover:shadow-cyan-500/20 transition-all duration-300 flex flex-col justify-center min-h-[120px] overflow-hidden cursor-pointer"
           >
-            <h3 className="text-xl lg:text-2xl font-serif text-[#3b4e69] dark:text-cream mb-2 tracking-tight leading-none">
-              3 granted
-              <br />9 pending
-            </h3>
-            <p className="text-[#3b4e69]/70 dark:text-cream/70 font-sans text-[10px] lg:text-xs leading-relaxed">
-              US patents, as of Aug 2026
-            </p>
+            {/* Hover Laser Sweep Line */}
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-400/20 to-transparent -translate-x-[100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-out pointer-events-none" />
+            {/* Ambient Corner Glow */}
+            <div className="absolute -top-12 -right-12 w-32 h-32 bg-cyan-400/15 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+
+            <div className="relative z-10">
+              <h3 className="text-xl lg:text-2xl font-display font-bold text-slate-900 dark:text-white mb-1 tracking-tight leading-none group-hover:text-cyan-500 dark:group-hover:text-cyan-300 transition-colors">
+                3 granted · 9 pending
+              </h3>
+              <p className="text-slate-600 dark:text-slate-300 font-sans text-xs leading-relaxed">
+                US patents, as of Aug 2026
+              </p>
+            </div>
+
+            {/* Bottom Glow Beam accent line */}
+            <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center" />
           </motion.div>
 
-          {/* Card 3 */}
+          {/* Card 3: ReviewsIntel */}
           <motion.div
             variants={{
-              hidden: { opacity: 0, x: "100vw" },
+              hidden: { opacity: 0, y: 20 },
               visible: {
                 opacity: 1,
-                x: 0,
-                transition: { type: "spring", stiffness: 40, damping: 14 },
+                y: 0,
+                transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
               },
             }}
-            className="flex-1 rounded-[24px] p-5 bg-[#F1F5F9]/90 dark:bg-ink-2/30 backdrop-blur-3xl border border-white/80 dark:border-cream/10 shadow-[0_4px_24px_rgba(0,0,0,0.02)] dark:shadow-[0_4px_24px_rgba(0,0,0,0.2)] hover:shadow-[0_12px_40px_rgba(37,99,235,0.15)] dark:hover:shadow-[0_12px_40px_rgba(56,189,248,0.15)] hover:-translate-y-2 transition-all duration-300 flex flex-col justify-center min-h-[120px]"
+            whileHover={{ y: -6, scale: 1.02 }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="group relative rounded-[24px] p-6 bg-slate-100/90 dark:bg-white/[0.03] backdrop-blur-2xl border border-slate-200 dark:border-white/10 hover:border-cyan-400/50 dark:hover:border-cyan-400/60 shadow-xl shadow-cyan-500/5 hover:shadow-cyan-500/20 transition-all duration-300 flex flex-col justify-center min-h-[120px] overflow-hidden cursor-pointer"
           >
-            <h3 className="text-xl lg:text-2xl font-serif text-[#3b4e69] dark:text-cream mb-2 tracking-tight leading-none">
-              Patent pending
-            </h3>
-            <p className="text-[#3b4e69]/70 dark:text-cream/70 font-sans text-[10px] lg:text-xs leading-relaxed">
-              ReviewsIntel · US provisional, June 2026
-            </p>
+            {/* Hover Laser Sweep Line */}
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-400/20 to-transparent -translate-x-[100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-out pointer-events-none" />
+            {/* Ambient Corner Glow */}
+            <div className="absolute -top-12 -right-12 w-32 h-32 bg-cyan-400/15 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+
+            <div className="relative z-10">
+              <h3 className="text-xl lg:text-2xl font-display font-bold text-slate-900 dark:text-white mb-1 tracking-tight leading-none group-hover:text-cyan-500 dark:group-hover:text-cyan-300 transition-colors">
+                Patent pending
+              </h3>
+              <p className="text-slate-600 dark:text-slate-300 font-sans text-xs leading-relaxed">
+                ReviewsIntel · US provisional, June 2026
+              </p>
+            </div>
+
+            {/* Bottom Glow Beam accent line */}
+            <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center" />
           </motion.div>
 
-          {/* Card 4 */}
+          {/* Card 4: RAccelerator */}
           <motion.div
             variants={{
-              hidden: { opacity: 0, x: "100vw" },
+              hidden: { opacity: 0, y: 20 },
               visible: {
                 opacity: 1,
-                x: 0,
-                transition: { type: "spring", stiffness: 40, damping: 14 },
+                y: 0,
+                transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
               },
             }}
-            className="flex-1 rounded-[24px] p-5 bg-[#F1F5F9]/90 dark:bg-ink-2/30 backdrop-blur-3xl border border-white/80 dark:border-cream/10 shadow-[0_4px_24px_rgba(0,0,0,0.02)] dark:shadow-[0_4px_24px_rgba(0,0,0,0.2)] hover:shadow-[0_12px_40px_rgba(37,99,235,0.15)] dark:hover:shadow-[0_12px_40px_rgba(56,189,248,0.15)] hover:-translate-y-2 transition-all duration-300 flex flex-col justify-center min-h-[120px]"
+            whileHover={{ y: -6, scale: 1.02 }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="group relative rounded-[24px] p-6 bg-slate-100/90 dark:bg-white/[0.03] backdrop-blur-2xl border border-slate-200 dark:border-white/10 hover:border-cyan-400/50 dark:hover:border-cyan-400/60 shadow-xl shadow-cyan-500/5 hover:shadow-cyan-500/20 transition-all duration-300 flex flex-col justify-center min-h-[120px] overflow-hidden cursor-pointer"
           >
-            <h3 className="text-xl lg:text-2xl font-serif text-[#3b4e69] dark:text-cream mb-2 tracking-tight leading-none">
-              First enterprise evaluation
-            </h3>
-            <p className="text-[#3b4e69]/70 dark:text-cream/70 font-sans text-[10px] lg:text-xs leading-relaxed">
-              RAccelerator · global device manufacturer · Sept 2026
-            </p>
+            {/* Hover Laser Sweep Line */}
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-400/20 to-transparent -translate-x-[100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-out pointer-events-none" />
+            {/* Ambient Corner Glow */}
+            <div className="absolute -top-12 -right-12 w-32 h-32 bg-cyan-400/15 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+
+            <div className="relative z-10">
+              <h3 className="text-xl lg:text-2xl font-display font-bold text-slate-900 dark:text-white mb-1 tracking-tight leading-none group-hover:text-cyan-500 dark:group-hover:text-cyan-300 transition-colors">
+                First enterprise evaluation
+              </h3>
+              <p className="text-slate-600 dark:text-slate-300 font-sans text-xs leading-relaxed">
+                RAccelerator · global device manufacturer · Sept 2026
+              </p>
+            </div>
+
+            {/* Bottom Glow Beam accent line */}
+            <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center" />
           </motion.div>
 
-          {/* Card 5 */}
+          {/* Card 5: Headquarters */}
           <motion.div
             variants={{
-              hidden: { opacity: 0, x: "100vw" },
+              hidden: { opacity: 0, y: 20 },
               visible: {
                 opacity: 1,
-                x: 0,
-                transition: { type: "spring", stiffness: 40, damping: 14 },
+                y: 0,
+                transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
               },
             }}
-            className="flex-1 rounded-[24px] p-5 bg-[#F1F5F9]/90 dark:bg-ink-2/30 backdrop-blur-3xl border border-white/80 dark:border-cream/10 shadow-[0_4px_24px_rgba(0,0,0,0.02)] dark:shadow-[0_4px_24px_rgba(0,0,0,0.2)] hover:shadow-[0_12px_40px_rgba(37,99,235,0.15)] dark:hover:shadow-[0_12px_40px_rgba(56,189,248,0.15)] hover:-translate-y-2 transition-all duration-300 flex flex-col justify-center min-h-[120px]"
+            whileHover={{ y: -6, scale: 1.02 }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="group relative rounded-[24px] p-6 bg-slate-100/90 dark:bg-white/[0.03] backdrop-blur-2xl border border-slate-200 dark:border-white/10 hover:border-cyan-400/50 dark:hover:border-cyan-400/60 shadow-xl shadow-cyan-500/5 hover:shadow-cyan-500/20 transition-all duration-300 flex flex-col justify-center min-h-[120px] overflow-hidden cursor-pointer"
           >
-            <h3 className="text-xl lg:text-2xl font-serif text-[#3b4e69] dark:text-cream mb-2 tracking-tight leading-none">
-              Frisco, Texas
-            </h3>
-            <p className="text-[#3b4e69]/70 dark:text-cream/70 font-sans text-[10px] lg:text-xs leading-relaxed">
-              Craton Technologies LLC · founder-funded
-            </p>
+            {/* Hover Laser Sweep Line */}
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-400/20 to-transparent -translate-x-[100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-out pointer-events-none" />
+            {/* Ambient Corner Glow */}
+            <div className="absolute -top-12 -right-12 w-32 h-32 bg-cyan-400/15 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+
+            <div className="relative z-10">
+              <h3 className="text-xl lg:text-2xl font-display font-bold text-slate-900 dark:text-white mb-1 tracking-tight leading-none group-hover:text-cyan-500 dark:group-hover:text-cyan-300 transition-colors">
+                Frisco, Texas
+              </h3>
+              <p className="text-slate-600 dark:text-slate-300 font-sans text-xs leading-relaxed">
+                Craton Technologies LLC · founder-funded
+              </p>
+            </div>
+
+            {/* Bottom Glow Beam accent line */}
+            <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center" />
           </motion.div>
         </motion.div>
       </section>
@@ -2364,6 +2527,7 @@ export default function Home() {
       {/* SECTION 1.6: THE CRATON MINDSET                                 */}
       {/* ============================================================== */}
       <section
+        id="mindset"
         ref={mindsetRef}
         style={{
           backgroundColor: mounted && theme === "dark" ? "#0B1120" : "#FFFFFF",
@@ -2483,7 +2647,7 @@ export default function Home() {
             >
               {/* Image Icon Box on Top */}
               <div
-                className={`w-[180px] h-[180px] md:w-[220px] md:h-[220px] shrink-0 rounded-[32px] backdrop-blur-md shadow-xl flex items-center justify-center border overflow-hidden relative mb-8 ${mounted && theme === "dark" ? "bg-slate-800/80 border-white/10" : "bg-slate-50 border-slate-200/80"}`}
+                className={`w-[180px] h-[180px] md:w-[220px] md:h-[220px] shrink-0 rounded-[32px] backdrop-blur-md shadow-xl flex items-center justify-center border overflow-hidden relative mb-5 ${mounted && theme === "dark" ? "bg-slate-800/80 border-white/10" : "bg-slate-50 border-slate-200/80"}`}
               >
                 {/* Floating ambient dust particles (Matching screenshot 2) */}
                 <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-50">
@@ -2584,12 +2748,12 @@ export default function Home() {
               {/* Content on Bottom */}
               <div className="flex flex-col items-center">
                 <div
-                  className={`text-4xl md:text-5xl font-light mb-3 font-mono ${mounted && theme === "dark" ? "text-slate-500" : "text-slate-400"}`}
+                  className={`text-4xl md:text-5xl font-light mb-2 font-mono ${mounted && theme === "dark" ? "text-slate-500" : "text-slate-400"}`}
                 >
                   01
                 </div>
                 <h3
-                  className={`text-xl md:text-2xl font-bold mb-3 ${mounted && theme === "dark" ? "text-white" : "text-slate-900"}`}
+                  className={`text-xl md:text-2xl font-bold mb-2 ${mounted && theme === "dark" ? "text-white" : "text-slate-900"}`}
                 >
                   Trust is the product.
                 </h3>
@@ -2617,7 +2781,7 @@ export default function Home() {
             >
               {/* Image Icon Box on Top */}
               <div
-                className={`w-[180px] h-[180px] md:w-[220px] md:h-[220px] shrink-0 rounded-[32px] backdrop-blur-md shadow-xl flex items-center justify-center border overflow-hidden relative mb-8 ${mounted && theme === "dark" ? "bg-slate-800/80 border-white/10" : "bg-slate-50 border-slate-200/80"}`}
+                className={`w-[180px] h-[180px] md:w-[220px] md:h-[220px] shrink-0 rounded-[32px] backdrop-blur-md shadow-xl flex items-center justify-center border overflow-hidden relative mb-5 ${mounted && theme === "dark" ? "bg-slate-800/80 border-white/10" : "bg-slate-50 border-slate-200/80"}`}
               >
                 {/* Floating ambient dust particles (Matching screenshot 2) */}
                 <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-50">
@@ -2753,12 +2917,12 @@ export default function Home() {
               {/* Content on Bottom */}
               <div className="flex flex-col items-center">
                 <div
-                  className={`text-4xl md:text-5xl font-light mb-3 font-mono ${mounted && theme === "dark" ? "text-slate-500" : "text-slate-400"}`}
+                  className={`text-4xl md:text-5xl font-light mb-2 font-mono ${mounted && theme === "dark" ? "text-slate-500" : "text-slate-400"}`}
                 >
                   02
                 </div>
                 <h3
-                  className={`text-xl md:text-2xl font-bold mb-3 ${mounted && theme === "dark" ? "text-white" : "text-slate-900"}`}
+                  className={`text-xl md:text-2xl font-bold mb-2 ${mounted && theme === "dark" ? "text-white" : "text-slate-900"}`}
                 >
                   Protect before you build.
                 </h3>
@@ -2786,7 +2950,7 @@ export default function Home() {
             >
               {/* Image Icon Box on Top */}
               <div
-                className={`w-[180px] h-[180px] md:w-[220px] md:h-[220px] shrink-0 rounded-[32px] backdrop-blur-md shadow-xl flex items-center justify-center border overflow-hidden relative mb-8 ${mounted && theme === "dark" ? "bg-slate-800/80 border-white/10" : "bg-slate-50 border-slate-200/80"}`}
+                className={`w-[180px] h-[180px] md:w-[220px] md:h-[220px] shrink-0 rounded-[32px] backdrop-blur-md shadow-xl flex items-center justify-center border overflow-hidden relative mb-5 ${mounted && theme === "dark" ? "bg-slate-800/80 border-white/10" : "bg-slate-50 border-slate-200/80"}`}
               >
                 {/* Floating ambient dust particles (Matching screenshot 2) */}
                 <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-50">
@@ -2889,12 +3053,12 @@ export default function Home() {
               {/* Content on Bottom */}
               <div className="flex flex-col items-center">
                 <div
-                  className={`text-4xl md:text-5xl font-light mb-3 font-mono ${mounted && theme === "dark" ? "text-slate-500" : "text-slate-400"}`}
+                  className={`text-4xl md:text-5xl font-light mb-2 font-mono ${mounted && theme === "dark" ? "text-slate-500" : "text-slate-400"}`}
                 >
                   03
                 </div>
                 <h3
-                  className={`text-xl md:text-2xl font-bold mb-3 ${mounted && theme === "dark" ? "text-white" : "text-slate-900"}`}
+                  className={`text-xl md:text-2xl font-bold mb-2 ${mounted && theme === "dark" ? "text-white" : "text-slate-900"}`}
                 >
                   Experts own what they build.
                 </h3>
@@ -2939,23 +3103,23 @@ export default function Home() {
           <div className="max-w-7xl mx-auto relative z-10">
             {/* HEADER AREA */}
             <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-80px" }}
-              variants={staggerContainer}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
               className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-end mb-8 md:mb-10"
             >
               <div className="lg:col-span-8 flex flex-col items-start">
-                <motion.h2
-                  variants={fadeInUp}
-                  className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-slate-900 dark:text-white leading-[1.1]"
-                >
-                  Complexity <br className="hidden sm:block" />
-                  meets{" "}
+                <p className="font-mono text-xs uppercase tracking-[0.2em] font-semibold text-slate-500 dark:text-slate-400 mb-2">
+                  02 / Deep Intelligence
+                </p>
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-slate-900 dark:text-white leading-[1.15]">
+                  Complexity meets{" "}
+                  <br className="hidden sm:block" />
                   <span className="font-serif italic text-blue-600 dark:text-blue-400 font-normal">
                     clarity.
                   </span>
-                </motion.h2>
+                </h2>
               </div>
 
               <div className="lg:col-span-4">
@@ -3521,40 +3685,35 @@ export default function Home() {
         <ForwardStackedCardsSection isDark={mounted && theme === "dark"} />
 
         {/* PANEL 4.3: SECURITY & TRUST (Bento Box Redesign) */}
-        <section className="w-full py-32 px-12 md:px-32 relative bg-transparent overflow-hidden">
+        <section
+          id="security"
+          className="w-full py-12 md:py-16 px-6 md:px-12 relative bg-transparent overflow-hidden"
+        >
           <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[radial-gradient(ellipse_at_center,rgba(56,189,248,0.08)_0%,transparent_60%)] pointer-events-none z-0" />
 
           <div className="max-w-6xl mx-auto relative z-10">
             <motion.div
-              initial="hidden"
-              whileInView="visible"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              variants={staggerContainer}
-              className="mb-20 text-center flex flex-col items-center"
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              className="mb-10 text-center flex flex-col items-center"
             >
-              <motion.div
-                variants={fadeInUp}
-                className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-copper/20 bg-copper/5 mb-8"
-              >
-                <div className="w-2 h-2 rounded-full bg-copper animate-pulse" />
-                <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-copper">
-                  05 // Security & Trust
-                </p>
-              </motion.div>
-              <motion.h3
-                variants={fadeInUp}
-                className="text-4xl md:text-5xl font-display mb-6 text-cream uppercase tracking-tighter"
-              >
-                Built for the strictest environments.
-              </motion.h3>
-              <motion.p
-                variants={fadeInUp}
-                className="text-cream/70 font-sans font-light leading-relaxed text-sm max-w-2xl text-center"
-              >
+              <p className="font-mono text-xs uppercase tracking-[0.2em] font-semibold text-slate-500 dark:text-slate-400 mb-2">
+                05 / Security & Trust
+              </p>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-slate-900 dark:text-white leading-[1.15] mb-3">
+                Built for the strictest
+                <br />
+                <span className="font-serif italic text-blue-600 dark:text-blue-400 font-normal">
+                  environments.
+                </span>
+              </h2>
+              <p className="text-slate-600 dark:text-slate-300 font-sans font-light leading-relaxed text-sm max-w-2xl text-center">
                 In fields like MedTech and Commerce, trust isn't a feature—it's
                 the entire product. Craton's infrastructure respects data
                 residency and strict access controls.
-              </motion.p>
+              </p>
             </motion.div>
 
             <motion.div
@@ -3576,12 +3735,10 @@ export default function Home() {
           </div>
         </section>
 
-
-
         {/* PANEL 4.8: TESTIMONIALS / SOCIAL PROOF */}
         <section
           id="proof"
-          className="w-full py-32 px-12 md:px-32 relative bg-transparent overflow-hidden"
+          className="w-full py-12 md:py-16 px-6 md:px-12 relative bg-transparent overflow-hidden"
         >
           <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[radial-gradient(ellipse_at_center,var(--color-copper)_0%,transparent_60%)] opacity-5 pointer-events-none z-0" />
 
@@ -3592,24 +3749,28 @@ export default function Home() {
             variants={staggerContainer}
             className="max-w-7xl mx-auto relative z-10"
           >
-            <div className="flex flex-col md:flex-row justify-between items-end mb-20">
+            <div className="flex flex-col md:flex-row justify-between items-end mb-10">
               <div className="max-w-2xl">
                 <motion.p
                   variants={fadeInUp}
-                  className="font-mono text-[11px] uppercase tracking-[0.2em] text-sage mb-6"
+                  className="font-mono text-xs uppercase tracking-[0.2em] font-semibold text-slate-500 dark:text-slate-400 mb-2"
                 >
-                  Enterprise Trust
+                  06 / Enterprise Proof
                 </motion.p>
                 <motion.h2
                   variants={fadeInUp}
-                  className="text-4xl md:text-5xl font-display tracking-tighter text-cream uppercase"
+                  className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-slate-900 dark:text-white leading-[1.15]"
                 >
-                  Proof in Production.
+                  Proof in
+                  <br />
+                  <span className="font-serif italic text-blue-600 dark:text-blue-400 font-normal">
+                    production.
+                  </span>
                 </motion.h2>
               </div>
               <motion.p
                 variants={fadeInUp}
-                className="hidden md:block text-cream/60 font-mono text-sm max-w-sm text-right leading-relaxed"
+                className="hidden md:block text-slate-600 dark:text-slate-400 font-sans text-sm max-w-sm text-right leading-relaxed"
               >
                 Evaluating highly regulated, complex workflows with the world's
                 most critical enterprises.
@@ -3617,7 +3778,9 @@ export default function Home() {
             </div>
 
             {/* Expandable Testimonials Accordion */}
-            <ExpandingTestimonialsAccordion isDark={mounted && theme === "dark"} />
+            <ExpandingTestimonialsAccordion
+              isDark={mounted && theme === "dark"}
+            />
           </motion.div>
         </section>
 
@@ -3645,22 +3808,40 @@ export default function Home() {
                   </span>
                 </div>
                 <p className="text-slate-600 dark:text-slate-400 font-sans text-xs leading-relaxed">
-                  Craton Technologies is an innovation-driven product company based in Frisco, Texas. It invents, protects, and ships AI-enabled products for regulated and evidence-heavy industries — beginning with RAccelerator, a regulatory-affairs platform for medical device and IVD manufacturers navigating EU MDR and IVDR — and applies the same method across agentic commerce and new domains.
+                  Craton Technologies is an innovation-driven product company
+                  based in Frisco, Texas. It invents, protects, and ships
+                  AI-enabled products for regulated and evidence-heavy
+                  industries — beginning with RAccelerator, a regulatory-affairs
+                  platform for medical device and IVD manufacturers navigating
+                  EU MDR and IVDR — and applies the same method across agentic
+                  commerce and new domains.
                 </p>
               </div>
 
               {/* Right: Section Quick Links */}
               <div className="flex flex-wrap items-center gap-6 md:gap-8 font-sans font-medium text-slate-700 dark:text-slate-300 text-sm">
-                <a href="#about" className="hover:text-blue-600 dark:hover:text-white transition-colors">
+                <a
+                  href="#about"
+                  className="hover:text-blue-600 dark:hover:text-white transition-colors"
+                >
                   Company
                 </a>
-                <a href="#raccelerator" className="hover:text-blue-600 dark:hover:text-white transition-colors">
+                <a
+                  href="#raccelerator"
+                  className="hover:text-blue-600 dark:hover:text-white transition-colors"
+                >
                   RAccelerator
                 </a>
-                <a href="#reviewsintel" className="hover:text-blue-600 dark:hover:text-white transition-colors">
+                <a
+                  href="#reviewsintel"
+                  className="hover:text-blue-600 dark:hover:text-white transition-colors"
+                >
                   ReviewsIntel
                 </a>
-                <a href="#contact" className="hover:text-blue-600 dark:hover:text-white transition-colors">
+                <a
+                  href="#contact"
+                  className="hover:text-blue-600 dark:hover:text-white transition-colors"
+                >
                   Contact
                 </a>
               </div>
@@ -3669,9 +3850,7 @@ export default function Home() {
             {/* Bottom Line: Copyright, Legal Links, and Back to top Button */}
             <div className="flex flex-col md:flex-row justify-between items-center gap-6 pt-8 border-t border-slate-200 dark:border-white/10 text-[11px] font-mono text-slate-500 dark:text-slate-400">
               {/* Left: Copyright */}
-              <p>
-                © 2026 Craton Technologies LLC. All rights reserved.
-              </p>
+              <p>© 2026 Craton Technologies LLC. All rights reserved.</p>
 
               {/* Center: Legal Links */}
               <div className="flex flex-wrap items-center justify-center gap-6">
@@ -3711,7 +3890,6 @@ export default function Home() {
                   Reduce motion
                 </button>
               </div>
-
             </div>
           </div>
         </footer>
