@@ -1951,36 +1951,120 @@ export default function Home() {
             initial={{ opacity: 1 }}
             exit={{ opacity: 0, scale: 1.05 }}
             transition={{ duration: 0.8, ease: "easeInOut" }}
-            className="fixed inset-0 z-[9999] bg-ink flex flex-col items-center justify-center overflow-hidden"
+            className={`fixed inset-0 z-[9999] flex flex-col items-center justify-center overflow-hidden transition-colors duration-300 ${
+              mounted && theme === "light" ? "bg-[#F8FAFC]" : "bg-[#030712]"
+            }`}
           >
-            {/* Background ambient glow */}
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(56,189,248,0.08)_0%,transparent_50%)] blur-2xl pointer-events-none" />
+            {/* Full Background Minor Dot Pattern */}
+            <div
+              className={`absolute inset-0 bg-[size:20px_20px] pointer-events-none opacity-60 ${
+                mounted && theme === "light"
+                  ? "bg-[radial-gradient(#94a3b8_1px,transparent_1px)]"
+                  : "bg-[radial-gradient(#334155_1px,transparent_1px)]"
+              }`}
+            />
+
+            {/* Soft Ambient Background Glow */}
+            <div
+              className={`absolute inset-0 blur-2xl pointer-events-none ${
+                mounted && theme === "light"
+                  ? "bg-[radial-gradient(ellipse_at_center,rgba(37,99,235,0.08)_0%,rgba(248,250,252,0.95)_70%)]"
+                  : "bg-[radial-gradient(ellipse_at_center,rgba(14,165,233,0.15)_0%,rgba(3,7,18,0.95)_70%)]"
+              }`}
+            />
+
+            {/* Pulsing Central Blur Aura */}
+            <motion.div
+              animate={{ scale: [1, 1.25, 1], opacity: [0.3, 0.6, 0.3] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              className={`absolute w-80 h-80 rounded-full blur-[90px] pointer-events-none ${
+                mounted && theme === "light" ? "bg-blue-400/20" : "bg-cyan-500/20"
+              }`}
+            />
 
             <div className="relative z-10 flex flex-col items-center">
-              <div className="overflow-hidden mb-10">
-                <motion.h1
-                  initial={{ y: 100, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ duration: 0.8, ease: "easeOut" }}
-                  className="text-5xl md:text-7xl font-display text-cream tracking-tighter uppercase"
-                >
-                  Craton
-                </motion.h1>
-              </div>
+              {/* Central Logo */}
+              <motion.div
+                initial={{ scale: 0.85, opacity: 0, y: 15 }}
+                animate={{ scale: 1, opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                className="relative mb-10 group"
+              >
+                {/* Logo Backlight Glow */}
+                <div
+                  className={`absolute -inset-6 rounded-full blur-2xl animate-pulse opacity-70 ${
+                    mounted && theme === "light"
+                      ? "bg-gradient-to-r from-blue-400/30 to-indigo-500/30"
+                      : "bg-gradient-to-r from-sky-500/30 to-blue-600/30"
+                  }`}
+                />
 
-              {/* Progress Bar */}
-              <div className="w-64 md:w-80 h-[2px] bg-cream/10 relative overflow-hidden mb-4 rounded-full">
+                <motion.img
+                  src="/bg-r-logo.png"
+                  alt="Logo"
+                  className={`w-24 h-24 md:w-32 md:h-32 object-contain relative z-10 ${
+                    mounted && theme === "light"
+                      ? "drop-shadow-[0_0_25px_rgba(37,99,235,0.3)]"
+                      : "drop-shadow-[0_0_25px_rgba(56,189,248,0.5)]"
+                  }`}
+                  animate={{ y: [0, -8, 0] }}
+                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                />
+              </motion.div>
+
+              {/* Progress Bar Container */}
+              <div
+                className={`w-72 md:w-96 h-[4px] relative overflow-hidden mb-5 rounded-full backdrop-blur-md ${
+                  mounted && theme === "light"
+                    ? "bg-slate-200 border border-slate-300 shadow-sm"
+                    : "bg-slate-900/90 border border-sky-500/25 shadow-[0_0_20px_rgba(0,0,0,0.8)]"
+                }`}
+              >
                 <motion.div
-                  className="absolute top-0 left-0 h-full bg-gradient-to-r from-copper to-sage"
+                  className={`absolute top-0 left-0 h-full ${
+                    mounted && theme === "light"
+                      ? "bg-gradient-to-r from-blue-600 via-indigo-500 to-sky-500 shadow-[0_0_12px_rgba(37,99,235,0.4)]"
+                      : "bg-gradient-to-r from-sky-500 via-cyan-400 to-indigo-500 shadow-[0_0_16px_#38bdf8]"
+                  }`}
                   initial={{ width: "0%" }}
                   animate={{ width: `${loadingProgress}%` }}
                   transition={{ duration: 0.1 }}
                 />
+                {/* Moving Light Shimmer Beam */}
+                <motion.div
+                  animate={{ x: ["-100%", "250%"] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                  className="absolute top-0 left-0 w-28 h-full bg-gradient-to-r from-transparent via-white/50 to-transparent pointer-events-none"
+                />
               </div>
 
-              <div className="w-64 md:w-80 flex justify-between text-[11px] font-mono uppercase tracking-[0.2em] text-cream/70">
-                <span className="animate-pulse">Initializing Platform</span>
-                <span>{loadingProgress}%</span>
+              {/* Progress Info Labels */}
+              <div
+                className={`w-72 md:w-96 flex justify-between items-center text-[12px] font-mono uppercase tracking-[0.25em] ${
+                  mounted && theme === "light" ? "text-slate-700" : "text-slate-300"
+                }`}
+              >
+                <span
+                  className={`flex items-center gap-2 font-semibold ${
+                    mounted && theme === "light" ? "text-blue-600" : "text-sky-300"
+                  }`}
+                >
+                  <span
+                    className={`w-2 h-2 rounded-full animate-ping ${
+                      mounted && theme === "light" ? "bg-blue-600" : "bg-cyan-400"
+                    }`}
+                  />
+                  Initializing Platform
+                </span>
+                <span
+                  className={`px-2.5 py-0.5 rounded font-bold ${
+                    mounted && theme === "light"
+                      ? "bg-white border border-slate-300 text-blue-600 shadow-sm"
+                      : "bg-sky-950/90 border border-sky-500/40 text-cyan-300 shadow-[0_0_12px_rgba(56,189,248,0.25)]"
+                  }`}
+                >
+                  {loadingProgress}%
+                </span>
               </div>
             </div>
           </motion.div>
@@ -2033,190 +2117,74 @@ export default function Home() {
           </AnimatePresence>
         </div>
 
-        {/* LEFT SIDE CURVED TITLE */}
+        {/* LEFT SIDE TITLE */}
         <motion.div
-          initial={{ opacity: 0, x: -50 }}
+          initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          className="absolute top-0 left-0 h-full w-[150px] md:w-[250px] flex items-center z-20 pointer-events-none"
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="absolute top-0 left-4 md:left-8 h-full flex items-center z-20 pointer-events-none"
         >
           <svg
-            width="100%"
-            height="90%"
-            viewBox="0 0 200 800"
-            className="overflow-visible absolute -left-10 md:left-0"
+            width="60"
+            height="100%"
+            viewBox="0 0 60 800"
+            className="overflow-visible"
           >
-            <defs>
-              <linearGradient
-                id="shimmerLeft"
-                x1="0%"
-                y1="-100%"
-                x2="0%"
-                y2="100%"
-              >
-                <stop
-                  offset="0%"
-                  stopColor={
-                    mounted && theme === "light" ? "#111827" : "#38BDF8"
-                  }
-                />
-                <stop
-                  offset="25%"
-                  stopColor={
-                    mounted && theme === "light" ? "#2563eb" : "#00F0FF"
-                  }
-                />
-                <stop
-                  offset="50%"
-                  stopColor={
-                    mounted && theme === "light" ? "#111827" : "#38BDF8"
-                  }
-                />
-                <stop
-                  offset="75%"
-                  stopColor={
-                    mounted && theme === "light" ? "#2563eb" : "#00F0FF"
-                  }
-                />
-                <stop
-                  offset="100%"
-                  stopColor={
-                    mounted && theme === "light" ? "#111827" : "#38BDF8"
-                  }
-                />
-                <animate
-                  attributeName="y1"
-                  values="-100%; 0%"
-                  dur="4s"
-                  repeatCount="indefinite"
-                />
-                <animate
-                  attributeName="y2"
-                  values="100%; 200%"
-                  dur="4s"
-                  repeatCount="indefinite"
-                />
-              </linearGradient>
-            </defs>
             <path
-              id="curveLeft"
-              d="M -50 0 Q 150 400 -50 800"
+              id="straightLeft"
+              d="M 30 0 L 30 800"
               fill="transparent"
               stroke="transparent"
             />
             <text
-              fill="url(#shimmerLeft)"
-              fontSize="60"
-              fontWeight="bold"
+              fill={mounted && theme === "light" ? "#1d4ed8" : "#38bdf8"}
+              fillOpacity="0.6"
+              fontSize="18"
+              fontWeight="600"
               fontFamily="var(--font-display)"
-              letterSpacing="0.1em"
-              textAnchor="middle"
+              letterSpacing="0.15em"
+              textAnchor="start"
               style={{ textTransform: "uppercase" }}
             >
-              <motion.textPath
-                href="#curveLeft"
-                startOffset="100%"
-                animate={{ startOffset: ["100%", "-2000%"] }}
-                transition={{ duration: 400, repeat: Infinity, ease: "linear" }}
-              >
-                {"BOLD IDEAS. \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 ".repeat(
-                  40,
-                )}
-              </motion.textPath>
+              <textPath href="#straightLeft" startOffset="0%">
+                {"BOLD IDEAS. \u00A0\u00A0\u00A0\u00A0\u00A0 ".repeat(12)}
+              </textPath>
             </text>
           </svg>
         </motion.div>
 
-        {/* RIGHT SIDE CURVED TITLE */}
+        {/* RIGHT SIDE TITLE */}
         <motion.div
-          initial={{ opacity: 0, x: 50 }}
+          initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-          className="absolute top-0 right-0 h-full w-[150px] md:w-[250px] flex items-center z-20 pointer-events-none"
+          transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
+          className="absolute top-0 right-4 md:right-8 h-full flex items-center z-20 pointer-events-none"
         >
           <svg
-            width="100%"
-            height="90%"
-            viewBox="0 0 200 800"
-            className="overflow-visible absolute -right-10 md:right-0"
+            width="60"
+            height="100%"
+            viewBox="0 0 60 800"
+            className="overflow-visible"
           >
-            <defs>
-              <linearGradient
-                id="shimmerRight"
-                x1="0%"
-                y1="-100%"
-                x2="0%"
-                y2="100%"
-              >
-                <stop
-                  offset="0%"
-                  stopColor={
-                    mounted && theme === "light" ? "#111827" : "#38BDF8"
-                  }
-                />
-                <stop
-                  offset="25%"
-                  stopColor={
-                    mounted && theme === "light" ? "#2563eb" : "#00F0FF"
-                  }
-                />
-                <stop
-                  offset="50%"
-                  stopColor={
-                    mounted && theme === "light" ? "#111827" : "#38BDF8"
-                  }
-                />
-                <stop
-                  offset="75%"
-                  stopColor={
-                    mounted && theme === "light" ? "#2563eb" : "#00F0FF"
-                  }
-                />
-                <stop
-                  offset="100%"
-                  stopColor={
-                    mounted && theme === "light" ? "#111827" : "#38BDF8"
-                  }
-                />
-                <animate
-                  attributeName="y1"
-                  values="-100%; 0%"
-                  dur="4s"
-                  repeatCount="indefinite"
-                />
-                <animate
-                  attributeName="y2"
-                  values="100%; 200%"
-                  dur="4s"
-                  repeatCount="indefinite"
-                />
-              </linearGradient>
-            </defs>
             <path
-              id="curveRight"
-              d="M 220 0 Q 20 400 220 800"
+              id="straightRight"
+              d="M 30 0 L 30 800"
               fill="transparent"
               stroke="transparent"
             />
             <text
-              fill="url(#shimmerRight)"
-              fontSize="60"
-              fontWeight="bold"
+              fill={mounted && theme === "light" ? "#1d4ed8" : "#38bdf8"}
+              fillOpacity="0.6"
+              fontSize="18"
+              fontWeight="600"
               fontFamily="var(--font-display)"
-              letterSpacing="0.1em"
-              textAnchor="middle"
+              letterSpacing="0.15em"
+              textAnchor="start"
               style={{ textTransform: "uppercase" }}
             >
-              <motion.textPath
-                href="#curveRight"
-                startOffset="100%"
-                animate={{ startOffset: ["100%", "-2000%"] }}
-                transition={{ duration: 400, repeat: Infinity, ease: "linear" }}
-              >
-                {"ENGINEERED FORWARD. \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 ".repeat(
-                  40,
-                )}
-              </motion.textPath>
+              <textPath href="#straightRight" startOffset="0%">
+                {"ENGINEERED FORWARD. \u00A0\u00A0\u00A0\u00A0\u00A0 ".repeat(12)}
+              </textPath>
             </text>
           </svg>
         </motion.div>
